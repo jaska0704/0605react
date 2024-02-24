@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState ={
-    user:[]
+    user:[],
 }
 
 const todoReducer = createSlice({
@@ -11,9 +11,15 @@ const todoReducer = createSlice({
         add:(state,claym)=>{
             return {...state, user:[...state.user, claym.payload]}
         },
+        delet:(state, claym)=> {
+            return {...state,user:state.user.filter((obj)=> obj.id !== claym.payload.id)}
+        },
+        edit: (state, claym) => {
+            return {...state, user:state.user.map((item) => item.id === claym.payload.id ? claym.payload : item),};
+        }
     },
 });
 
 export default todoReducer.reducer;
 
-export const {add} = todoReducer.actions;
+export const {add, delet, edit} = todoReducer.actions;
